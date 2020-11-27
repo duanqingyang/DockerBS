@@ -1,19 +1,25 @@
 FROM nvidia/cuda:9.0-cudnn7-devel
 
+ENV MY_PATH="/users/duanqing"
+ENV MXNET_ROOT=/users/duanqing/incubator-mxnet
+
 ENV USE_BYTESCHEDULER=1
 ENV BYTESCHEDULER_WITH_MXNET=1
 ENV BYTESCHEDULER_WITHOUT_PYTORCH=1
-ENV MXNET_ROOT=/root/incubator-mxnet
+
 ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
 
-WORKDIR /root
+
+
+
+WORKDIR $MY_PATH
 
 # Install dev tools
 RUN apt-get update && apt-get install -y vim git python-dev build-essential
 RUN apt-get install -y wget && wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
 
 # Install gcc 4.9
-RUN mkdir -p /root/gcc/ && cd /root/gcc &&\
+RUN mkdir -p "$MY_PATH/gcc/" && cd "$MY_PATH/gcc/" &&\
     wget http://launchpadlibrarian.net/247707088/libmpfr4_3.1.4-1_amd64.deb &&\
     wget http://launchpadlibrarian.net/253728424/libasan1_4.9.3-13ubuntu2_amd64.deb &&\
     wget http://launchpadlibrarian.net/253728426/libgcc-4.9-dev_4.9.3-13ubuntu2_amd64.deb &&\
@@ -23,7 +29,7 @@ RUN mkdir -p /root/gcc/ && cd /root/gcc &&\
     wget http://launchpadlibrarian.net/253728432/libstdc++-4.9-dev_4.9.3-13ubuntu2_amd64.deb &&\
     wget http://launchpadlibrarian.net/253728401/g++-4.9_4.9.3-13ubuntu2_amd64.deb
 
-RUN cd /root/gcc &&\
+RUN cd "$MY_PATH/gcc/" &&\
     dpkg -i gcc-4.9-base_4.9.3-13ubuntu2_amd64.deb &&\
     dpkg -i libmpfr4_3.1.4-1_amd64.deb &&\
     dpkg -i libasan1_4.9.3-13ubuntu2_amd64.deb &&\
@@ -58,4 +64,4 @@ RUN git clone --branch bytescheduler --recursive https://github.com/bytedance/by
 RUN rm -f /usr/local/cuda/lib64/libcuda.so.1
 
 # Examples
-WORKDIR /root/byteps/bytescheduler/examples/mxnet-image-classification
+WORKDIR "$MY_PATH/byteps/bytescheduler/examples/mxnet-image-classification"
