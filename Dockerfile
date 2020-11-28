@@ -63,7 +63,7 @@ RUN pip install bayesian-optimization==1.0.1 six
 RUN cd /usr/local/cuda/lib64 && ln -s stubs/libcuda.so libcuda.so.1
 RUN git clone --branch bytescheduler --recursive https://github.com/bytedance/byteps.git && \
     cd byteps/bytescheduler && python setup.py install
-RUN rm -f /usr/local/cuda/lib64/libcuda.so.1 $$ \
+RUN rm -f /usr/local/cuda/lib64/libcuda.so.1 && \
     ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1 &&\
     LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs/:$LD_LIBRARY_PATH
 
