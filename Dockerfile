@@ -64,8 +64,8 @@ RUN cd /usr/local/cuda/lib64 && ln -s stubs/libcuda.so libcuda.so.1
 RUN git clone --branch bytescheduler --recursive https://github.com/bytedance/byteps.git && \
     cd byteps/bytescheduler && python setup.py install
 RUN rm -f /usr/local/cuda/lib64/libcuda.so.1 && \
-    ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1 &&\
-    LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs/:$LD_LIBRARY_PATH
+    ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/libcuda.so.1 
+    # duanqingyang adding to fix mxnet running bug 
 
 # Examples
 WORKDIR "$MY_PATH/byteps/bytescheduler/examples/mxnet-image-classification"
