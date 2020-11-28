@@ -1,3 +1,5 @@
+# create an image for bytescheduler with mxnet
+
 FROM nvidia/cuda:9.0-cudnn7-devel
 
 ENV MY_PATH="/users/duanqing"
