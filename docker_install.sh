@@ -25,4 +25,4 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 sudo docker run hello-world
 
 sudo docker build -t="bs:mxnet" .
-sudo docker run -it bs:mxnet
+sudo docker run -it --name mxnet bs:mxnet
